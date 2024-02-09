@@ -1,0 +1,58 @@
+import { MoonSigner } from './signer.js';
+import { Provider, BlockTag, TransactionResponse, TransactionRequest, Block, BlockWithTransactions, TransactionReceipt, Filter, Log, EventType, Listener } from '@ethersproject/abstract-provider';
+import { Deferrable } from '@ethersproject/properties';
+import { Network } from '@ethersproject/providers';
+import { MoonSDK } from '@moonup/moon-sdk';
+import { IEthereumProvider, RequestArguments, ProviderAccounts } from 'eip1193-provider';
+import { BigNumber, BigNumberish } from 'ethers';
+import { EventEmitter } from 'events';
+import { JsonRpcProvider } from './json-rpc-provider.js';
+import { MoonProviderOptions } from './types.js';
+import '@ethersproject/abstract-signer';
+import '@ethersproject/bytes';
+import '@moonup/moon-api';
+
+declare class MoonProvider extends Provider implements IEthereumProvider {
+    events: EventEmitter;
+    chainId: number;
+    rpc: JsonRpcProvider;
+    sdk: MoonSDK;
+    address: string;
+    constructor(options: MoonProviderOptions);
+    request(args: RequestArguments): Promise<any>;
+    updateConfig(options: MoonProviderOptions): void;
+    connect(): Promise<void>;
+    disconnect(): Promise<void>;
+    sendAsync(args: RequestArguments, callback: (error: Error | null, response: any) => void): void;
+    enable(): Promise<ProviderAccounts>;
+    isMoonProvider(): boolean;
+    getChainId(): number;
+    getSigner(): MoonSigner;
+    getNetwork(): Promise<Network>;
+    getBlockNumber(): Promise<number>;
+    getGasPrice(): Promise<BigNumber>;
+    getBalance(addressOrName: string | Promise<string>, blockTag?: BlockTag | Promise<BlockTag> | undefined): Promise<BigNumber>;
+    getTransactionCount(addressOrName: string | Promise<string>, blockTag?: BlockTag | Promise<BlockTag> | undefined): Promise<number>;
+    getCode(addressOrName: string | Promise<string>, blockTag?: BlockTag | Promise<BlockTag> | undefined): Promise<string>;
+    getStorageAt(addressOrName: string | Promise<string>, position: BigNumberish | Promise<BigNumberish>, blockTag?: BlockTag | Promise<BlockTag> | undefined): Promise<string>;
+    sendTransaction(signedTransaction: string | Promise<string>): Promise<TransactionResponse>;
+    call(transaction: Deferrable<TransactionRequest>, blockTag?: BlockTag | Promise<BlockTag> | undefined): Promise<string>;
+    estimateGas(transaction: Deferrable<TransactionRequest>): Promise<BigNumber>;
+    getBlock(blockHashOrBlockTag: BlockTag | Promise<BlockTag>): Promise<Block>;
+    getBlockWithTransactions(blockHashOrBlockTag: BlockTag | Promise<BlockTag>): Promise<BlockWithTransactions>;
+    getTransaction(transactionHash: string): Promise<TransactionResponse>;
+    getTransactionReceipt(transactionHash: string): Promise<TransactionReceipt>;
+    getLogs(filter: Filter): Promise<Log[]>;
+    resolveName(name: string | Promise<string>): Promise<string | null>;
+    lookupAddress(address: string | Promise<string>): Promise<string | null>;
+    emit(eventName: EventType, ...args: any[]): boolean;
+    listenerCount(eventName?: EventType | undefined): number;
+    listeners(eventName?: EventType | undefined): Listener[];
+    removeAllListeners(eventName?: EventType | undefined): Provider;
+    waitForTransaction(transactionHash: string, confirmations?: number | undefined, timeout?: number | undefined): Promise<TransactionReceipt>;
+    on(eventName: EventType, listener: Listener): Provider;
+    once(eventName: EventType, listener: Listener): Provider;
+    off(eventName: EventType, listener?: Listener | undefined): Provider;
+}
+
+export { MoonProvider };

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/auth.ts"],"sourcesContent":["export enum AUTH {\n  OAUTH2 = 'oauth2',\n  JWT = 'bearer',\n  X_API_KEY = 'x-api-key',\n}\n"],"mappings":"yaAAA,IAAAA,EAAA,GAAAC,EAAAD,EAAA,UAAAE,IAAA,eAAAC,EAAAH,GAAO,IAAKE,OACVA,EAAA,OAAS,SACTA,EAAA,IAAM,SACNA,EAAA,UAAY,YAHFA,OAAA","names":["auth_exports","__export","AUTH","__toCommonJS"]}

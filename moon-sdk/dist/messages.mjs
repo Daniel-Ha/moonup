@@ -1,0 +1,2 @@
+import{EventEmitter as i}from"events";var n=(e=>(e.login="MOON_LOGIN",e.logout="MOON_LOGOUT",e))(n||{}),r=class{constructor(){this.EventEmitter=new i}emit(t,e){this.EventEmitter.emit(t,e)}async handle(t){return this.EventEmitter.emit(t.type,t.data),{type:t.type,data:t.data}}};export{r as MoonMessageHandler,n as MoonMessageType};
+//# sourceMappingURL=messages.mjs.map

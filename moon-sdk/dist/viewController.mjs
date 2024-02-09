@@ -1,0 +1,2 @@
+var t=class{constructor(i,s){this.container=i;this.url=s;this.iframe=document.createElement("iframe"),this.iframe.src=this.url,this.iframe.style.width="100%",this.iframe.style.height="100%",this.container.appendChild(this.iframe)}setUrl(i){this.url=i,this.iframe&&(this.iframe.src=this.url)}destroy(){this.container&&this.iframe&&this.container.removeChild(this.iframe)}sendMessage(i){this.iframe&&this.iframe.contentWindow&&this.iframe.contentWindow.postMessage(i,this.url)}};export{t as IframeController};
+//# sourceMappingURL=viewController.mjs.map
